@@ -1,0 +1,47 @@
+package data.domain.nodes;
+
+import data.domain.rels.Action;
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.*;
+
+import java.util.Set;
+
+@NodeEntity
+public class User {
+
+	@GraphId private Long id;
+
+	private String firstName;
+	private String lastName;
+
+	@Fetch
+	@RelatedTo(type = "FOLLOWS", direction = Direction.OUTGOING, elementClass = User.class)
+	Set<User> follows;
+
+	@Fetch
+	@RelatedTo(type = "FOLLOWS", direction = Direction.INCOMING, elementClass = User.class)
+	Set<User> followers;
+
+	@RelatedToVia(type = "ACTION", direction = Direction.OUTGOING)
+	Set<Action> actions;
+
+	@RelatedTo(type = "ACTION", direction = Direction.OUTGOING)
+	Set<Event> events;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+}
