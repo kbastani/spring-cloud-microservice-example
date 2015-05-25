@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+eureka:
+  instance:
+    hostname: config
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/kbastani/spring-boot-microservice-config

@@ -1,0 +1,6 @@
+server:
+  port: ${recommendations.port:9003}
+spring:
+  profiles:
+    active: cloud
+spring.cloud.config.discovery.enabled: true
