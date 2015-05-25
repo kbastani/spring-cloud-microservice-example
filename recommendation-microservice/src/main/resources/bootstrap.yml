@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: cloud
+    active: docker
   application:
     name: recommendation
 spring.cloud.config.discovery.enabled: "true"

@@ -3,6 +3,6 @@ spring:
     name: gateway
   cloud:
     config:
-      uri: http://localhost:8888/gateway/cloud
+      uri: http://configserver:8888
 encrypt:
   failOnError: false

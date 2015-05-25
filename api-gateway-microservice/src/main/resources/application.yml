@@ -1,5 +1,5 @@
 server:
-  port: 8762
+  port: 10000
 
 endpoints:
   restart:
@@ -11,11 +11,9 @@ endpoints:
 
 eureka:
   instance:
-    leaseRenewalIntervalInSeconds: 10
-    metadataMap:
-      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+    hostname: gateway
   client:
-    region: default
-    registryFetchIntervalSeconds: 5
-    availabilityZones:
-      default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
