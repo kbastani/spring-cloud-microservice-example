@@ -3,4 +3,6 @@ spring:
     name: users
   cloud:
     config:
-      uri: "http://config:8888"
+      uri: http://configserver:8888
+encrypt:
+  failOnError: false

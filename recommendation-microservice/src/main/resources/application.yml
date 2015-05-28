@@ -1,6 +1,13 @@
 server:
-  port: ${recommendations.port:9003}
-spring:
-  profiles:
-    active: cloud
-spring.cloud.config.discovery.enabled: true
+  port: 9003
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+ribbon:
+  eureka:
+    enabled: true

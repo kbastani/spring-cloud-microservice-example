@@ -1,7 +1,8 @@
 spring:
-  profiles:
-    active: docker
   application:
     name: recommendation
-spring.cloud.config.discovery.enabled: "true"
-spring.cloud.config.failFast: "true"
+  cloud:
+    config:
+      uri: http://configserver:8888
+encrypt:
+  failOnError: false

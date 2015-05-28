@@ -6,7 +6,7 @@ eureka:
     hostname: configserver
   client:
     registerWithEureka: true
-    fetchRegistry: false
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
 

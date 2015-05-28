@@ -14,6 +14,7 @@
         <module>api-gateway-microservice</module>
         <module>recommendation-microservice</module>
         <module>config-microservice</module>
+        <module>hystrix-dashboard</module>
     </modules>
 
     <parent>

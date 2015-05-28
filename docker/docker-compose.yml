@@ -1,0 +1,55 @@
+usersAmbassador:
+  image: cpuguy83/docker-grand-ambassador
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  command: "-name docker_users_1"
+recommendationAmbassador:
+  image: cpuguy83/docker-grand-ambassador
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  command: "-name docker_recommendation_1"
+hystrix:
+  image: kbastani/hystrix-dashboard
+  ports:
+   - "7979:7979"
+  links:
+   - usersAmbassador:users
+   - recommendationAmbassador:recommendation
+   - gateway
+   - discovery
+discovery:
+  image: kbastani/discovery-microservice
+  ports:
+   - "8761:8761"
+  links:
+   - usersAmbassador:users
+   - recommendationAmbassador:recommendation
+config:
+  image: kbastani/config-microservice
+  ports:
+   - "8888:8888"
+  links:
+   - discovery
+gateway:
+  image: kbastani/api-gateway-microservice
+  ports:
+   - "10000:10000"
+  links:
+   - discovery
+   - config
+   - users
+   - recommendation
+users:
+  image: kbastani/users-microservice
+  links:
+   - discovery
+   - config
+   - usersAmbassador:users
+   - recommendationAmbassador:recommendation
+recommendation:
+  image: kbastani/recommendation-microservice
+  links:
+   - discovery
+   - config
+   - usersAmbassador:users
+   - recommendationAmbassador:recommendation
