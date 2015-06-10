@@ -17,14 +17,6 @@ consulagent:
    - "8600:53/udp"
   command: -server -bootstrap-expect 1 -ui-dir /ui
   net: host
-#registrator:
-#  image: gliderlabs/registrator
-#  volumes:
-#   - "/var/run/docker.sock:/tmp/docker.sock"
-#  hostname: "registrator"
-#  links:
-#   - consul
-#  command: "consul:8000"
 consul:
   image: kbastani/consul-microservice
   ports:
