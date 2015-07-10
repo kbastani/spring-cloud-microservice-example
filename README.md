@@ -1,20 +1,39 @@
-# Spring Boot Microservice Platform
+# Spring Cloud Example Project
 
-This repository is an example cloud-native platform based on microservices built with Spring Boot. This example is meant to cover all aspects of building a cloud-native platform using Spring Boot and Spring Cloud.
+An example project that demonstrates an end-to-end cloud-native platform using Spring Cloud for building a practical microservices architecture.
 
-## Technology Stack
+Demonstrated concepts:
 
-Microservices provide teams the ability to choose their own technology stacks and expose APIs as REST resources. For this example I will use the following archtetype for microservices.
+* Integration testing using Docker
+* Polyglot persistence
+* Microservice architecture
+* Service discovery
+* API gateway
 
-## Microzoning
+## Docker
 
-One of the key tenets of this project is to demonstrate how to scale the development of a growing distributed services architecture. I'd like to introduce and test an idea of how to organically scale a distributed services architecture using a strategy I call *microzoning*.
+Each service is built and deployed using Docker. End-to-end integration testing can be done on a developer's machine using Docker compose.
 
-Microzoning is an idea for a strategy of organically growing a distributed microservices architecture using models and metaphors into *urban planning*.
+## Polyglot Persistence
 
-> Urban planning is a technical and political process concerned with the use of land and design of the urban environment, including air, water, and the infrastructure passing into and out of urban areas such as transportation and distribution networks. - [Wikipedia](http://en.wikipedia.org/wiki/Urban_planning)
+One of the core concepts of this example project is how polyglot persistence can be approached in practice. Microservices in the project use their own database, while integrating with the data from other services through REST or a message bus.
 
-In order to design a services architecture that relies on distributed processes and teams, a platform's design shifts from centralized master planning to decentralized local authorities. Microzoning is a body of policies that govern the behavior of services during their software lifecycle. The content of the policies are negotiated between scrum teams in order to build compliance between services.
+* Neo4j (graph)
+* MongoDB (document)
+* MySQL (relational)
 
-The premise of this is that a technology organization will inevitably be required to adapt software systems to respond to opportunities in the marketplace.
+## Microservice architecture
 
+This example project demonstrates how to build a new application using microservices, as opposed to a monolith-first strategy. Since each microservice in the project is a module of a single parent project, developers have the advantage of being able to run and develop with each microservice running on their local machine. Adding a new microservice is easy, as the discovery microservice will automatically discover new services running on the cluster.
+
+## Service discovery
+
+This project contains two discovery services, one on Netflix Eureka, and the other uses Consul from Hashicorp. Having multiple discovery services provides the opportunity to use one (Consul) as a DNS provider for the cluster, and the other (Eureka) as a proxy-based API gateway.
+
+## API gateway
+
+Each microservice will coordinate with Eureka to retrieve API routes for the entire cluster. Using this strategy each microservice in a cluster can be load balanced and exposed through one API gateway. Each service will automatically discover and route API requests to the service that owns the route. This proxying technique is equally helpful when developing user interfaces, as the full API of the platform is available through its own host as a proxy.
+
+# License
+
+This project is licensed under Apache License 2.0.
