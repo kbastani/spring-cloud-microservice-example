@@ -16,12 +16,14 @@
         <module>config-microservice</module>
         <module>hystrix-dashboard</module>
         <module>consul-microservice</module>
+        <module>movie-microservice</module>
+        <module>movies-ui</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-parent</artifactId>
-        <version>1.0.1.RELEASE</version>
+        <version>Brixton.BUILD-SNAPSHOT</version>
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
@@ -52,7 +54,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-parent</artifactId>
-                <version>1.0.1.RELEASE</version>
+                <version>Brixton.BUILD-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

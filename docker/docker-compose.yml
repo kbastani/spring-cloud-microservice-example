@@ -17,14 +17,6 @@ consulagent:
    - "8600:53/udp"
   command: -server -bootstrap-expect 1 -ui-dir /ui
   net: host
-#registrator:
-#  image: gliderlabs/registrator
-#  volumes:
-#   - "/var/run/docker.sock:/tmp/docker.sock"
-#  hostname: "registrator"
-#  links:
-#   - consul
-#  command: "consul:8000"
 consul:
   image: kbastani/consul-microservice
   ports:
@@ -43,15 +35,28 @@ gateway:
   links:
    - discovery
    - config
-   - users
+   - user
+   - movie
    - recommendation
-users:
+user:
   image: kbastani/users-microservice
+  links:
+   - discovery
+   - config
+movie:
+  image: kbastani/movie-microservice
   links:
    - discovery
    - config
 recommendation:
   image: kbastani/recommendation-microservice
+  links:
+   - discovery
+   - config
+moviesui:
+  image: kbastani/movies-ui
+  ports:
+     - "9006:9006"
   links:
    - discovery
    - config

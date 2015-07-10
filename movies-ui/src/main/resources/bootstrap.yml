@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user
+    name: moviesui
   cloud:
     config:
       uri: http://configserver:8888

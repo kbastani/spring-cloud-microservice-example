@@ -9,10 +9,15 @@ import java.util.Set;
 @NodeEntity
 public class User {
 
-	@GraphId private Long id;
+	@GraphId
+	Long id;
 
 	private String firstName;
 	private String lastName;
+	private String phone;
+	private String email;
+	@GraphProperty(propertyType = Long.class)
+	private Long birthDate;
 
 	@Fetch
 	@RelatedTo(type = "FOLLOWS", direction = Direction.OUTGOING, elementClass = User.class)
@@ -44,4 +49,31 @@ public class User {
 		this.lastName = lastName;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Long getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Long birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
 }

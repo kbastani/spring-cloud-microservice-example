@@ -13,4 +13,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     // TODO: Replace with @Param("name") when Spring Data Neo4j supports names vs. positional arguments
     List<User> findByLastName(@Param("0") String name);
 
+    List<User> findAll();
+
 }
