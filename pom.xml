@@ -10,7 +10,7 @@
 
     <modules>
         <module>users-microservice</module>
-        <module>discovery-microserivce</module>
+        <module>discovery-microservice</module>
         <module>api-gateway-microservice</module>
         <module>recommendation-microservice</module>
         <module>config-microservice</module>
