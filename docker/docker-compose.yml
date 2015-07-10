@@ -53,6 +53,7 @@ recommendation:
   links:
    - discovery
    - config
+<<<<<<< HEAD
 moviesui:
   image: kbastani/movies-ui
   ports:
@@ -60,3 +61,5 @@ moviesui:
   links:
    - discovery
    - config
+=======
+>>>>>>> origin/master
