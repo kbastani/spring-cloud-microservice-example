@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.kbastani</groupId>
-    <artifactId>spring-boot-microservice-neo4j-parent</artifactId>
+    <artifactId>spring-cloud-microservice-example-parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 

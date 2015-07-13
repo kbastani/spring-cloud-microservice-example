@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>spring-boot-microservice-neo4j-parent</artifactId>
+        <artifactId>spring-cloud-microservice-example-parent</artifactId>
         <groupId>org.kbastani</groupId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
