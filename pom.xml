@@ -71,6 +71,14 @@
             </snapshots>
         </repository>
         <repository>
+            <id>spring-snapshots-continuous</id>
+            <name>Spring Snapshots Continuous</name>
+            <url>http://repo.spring.io/libs-snapshot-continuous-local</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>http://repo.spring.io/libs-milestone-local</url>
