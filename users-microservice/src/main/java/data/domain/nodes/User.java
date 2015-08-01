@@ -1,11 +1,9 @@
 package data.domain.nodes;
 
-import data.domain.rels.Action;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.*;
 
 import java.io.Serializable;
-import java.util.Random;
 import java.util.Set;
 
 @NodeEntity
@@ -14,16 +12,12 @@ public class User implements Serializable {
 	@GraphId
 	Long id;
 
-	private String firstName;
-	private String lastName;
-	private String phone;
-	private String email;
-	@GraphProperty(propertyType = Long.class)
-	private Long birthDate;
+	private String age;
+	private String gender;
+	private String occupation;
+	private String zipcode;
 
-	public User() {
-
-	}
+	public User() { }
 
 	@Fetch
 	@RelatedTo(type = "FOLLOWS", direction = Direction.OUTGOING, elementClass = User.class)
@@ -33,88 +27,68 @@ public class User implements Serializable {
 	@RelatedTo(type = "FOLLOWS", direction = Direction.INCOMING, elementClass = User.class)
 	Set<User> followers;
 
-	@RelatedToVia(type = "ACTION", direction = Direction.OUTGOING)
-	Set<Action> actions;
+    public String getAge() {
+        return age;
+    }
 
-	@RelatedTo(type = "ACTION", direction = Direction.OUTGOING)
-	Set<Event> events;
+    public void setAge(String age) {
+        this.age = age;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getOccupation() {
+        return occupation;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getZipcode() {
+        return zipcode;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Long getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Long birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-		User user = (User) o;
+        User user = (User) o;
 
-		if (id != null ? !id.equals(user.id) : user.id != null) return false;
-		if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-		if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-		if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
-		if (email != null ? !email.equals(user.email) : user.email != null) return false;
-		if (birthDate != null ? !birthDate.equals(user.birthDate) : user.birthDate != null) return false;
-		if (follows != null ? !follows.equals(user.follows) : user.follows != null) return false;
-		if (followers != null ? !followers.equals(user.followers) : user.followers != null) return false;
-		if (actions != null ? !actions.equals(user.actions) : user.actions != null) return false;
-		return !(events != null ? !events.equals(user.events) : user.events != null);
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (age != null ? !age.equals(user.age) : user.age != null) return false;
+        if (gender != null ? !gender.equals(user.gender) : user.gender != null) return false;
+        if (occupation != null ? !occupation.equals(user.occupation) : user.occupation != null) return false;
+        if (zipcode != null ? !zipcode.equals(user.zipcode) : user.zipcode != null) return false;
+        if (follows != null ? !follows.equals(user.follows) : user.follows != null) return false;
+        return !(followers != null ? !followers.equals(user.followers) : user.followers != null);
 
-	}
+    }
 
-	@Override
-	public int hashCode() {
-		int result = id != null ? id.hashCode() : 0;
-		result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-		result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-		result = 31 * result + (phone != null ? phone.hashCode() : 0);
-		result = 31 * result + (email != null ? email.hashCode() : 0);
-		result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
-		result = 31 * result + (follows != null ? follows.hashCode() : 0);
-		result = 31 * result + (followers != null ? followers.hashCode() : 0);
-		result = 31 * result + (actions != null ? actions.hashCode() : 0);
-		result = 31 * result + (events != null ? events.hashCode() : 0);
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (occupation != null ? occupation.hashCode() : 0);
+        result = 31 * result + (zipcode != null ? zipcode.hashCode() : 0);
+        result = 31 * result + (follows != null ? follows.hashCode() : 0);
+        result = 31 * result + (followers != null ? followers.hashCode() : 0);
+        return result;
+    }
 }

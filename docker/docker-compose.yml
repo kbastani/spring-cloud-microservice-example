@@ -1,3 +1,7 @@
+couchbase:
+  image: ncolomer/couchbase
+  ports:
+   - "8091:8091"
 #hystrix:
 #  image: kbastani/hystrix-dashboard
 #  ports:
@@ -44,12 +48,12 @@ gateway:
 #   - user
 #   - movie
    - recommendation
-#user:
-#  image: kbastani/users-microservice
-#  links:
-#   
-#   - discovery
-#   - config
+user:
+  image: kbastani/users-microservice
+  links:
+   - couchbase
+   - discovery
+   - config
 #movie:
 #  image: kbastani/movie-microservice
 #  links:

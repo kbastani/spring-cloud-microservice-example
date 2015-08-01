@@ -13,7 +13,6 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends GraphRepository<User> {
 
-
     @Override
     @CacheEvict(value = "cache", key = "#p0.id")
     <U extends User> U save(U entity);
@@ -30,7 +29,5 @@ public interface UserRepository extends GraphRepository<User> {
     @Cacheable(value = "cache", key = "#p0")
     User findOne(Long aLong);
 
-    // TODO: Replace with @Param("name") when Spring Data Neo4j supports names vs. positional arguments
-    List<User> findByLastName(@Param("0") String name);
-
+    List<User> findByZipcode(@Param("4") String zipcode);
 }

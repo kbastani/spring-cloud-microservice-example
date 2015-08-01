@@ -1,30 +1,27 @@
 package data;
 
-import com.couchbase.client.CouchbaseClient;
 import data.domain.nodes.User;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.couchbase.cache.CouchbaseCacheManager;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
-import org.springframework.cache.Cache;
 import org.springframework.hateoas.ResourceProcessor;
 
-import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 @SpringBootApplication
 @EnableNeo4jRepositories
@@ -39,7 +36,7 @@ public class Application extends Neo4jConfiguration {
 
     @Bean(destroyMethod = "shutdown")
     public GraphDatabaseService graphDatabaseService() {
-        return new GraphDatabaseFactory().newEmbeddedDatabase("target/test3.db");
+        return new GraphDatabaseFactory().newEmbeddedDatabase("target/ephemeral2.db");
     }
 
     public static void main(String[] args) {
@@ -47,6 +44,37 @@ public class Application extends Neo4jConfiguration {
 
         RepositoryRestConfiguration restConfiguration = ctx.getBean("config", RepositoryRestConfiguration.class);
         restConfiguration.exposeIdsFor(User.class);
+    }
+
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return strings -> {
+            // Import graph data for users
+            String userImport = openFile("static/import-users.cypher");
+            neo4jTemplate().query(userImport, null).finish();
+        };
+    }
+
+    private String openFile(String path) throws IOException {
+
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        File file = new File(classLoader.getResource(path).getFile());
+
+        String everything;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            everything = sb.toString();
+        }
+
+        return everything;
     }
 
     @Bean

@@ -2,6 +2,7 @@ package data.config;
 
 import com.couchbase.client.CouchbaseClient;
 import com.google.common.collect.Lists;
+import net.spy.memcached.FailureMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
     @Value("${couchbase.cluster.password:}")
     private String password;
 
-    @Value("${couchbase.cluster.ip:192.168.59.103}")
+    @Value("${couchbase.cluster.ip:couchbase}")
     private String ip;
 
     @Value("${couchbase.cluster.ttl:90}")
@@ -73,7 +74,7 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
         couchbaseFactoryBean.setPassword(password);
 
         couchbaseFactoryBean.setHost(ip);
-
+        couchbaseFactoryBean.setFailureMode(String.valueOf(FailureMode.Cancel));
         return couchbaseFactoryBean;
     }
 }

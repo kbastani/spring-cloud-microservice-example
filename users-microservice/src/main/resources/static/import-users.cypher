@@ -1,0 +1,2 @@
+LOAD CSV WITH HEADERS FROM "http://localhost:9000/users.csv" AS csvLine
+MERGE (user:User:_User { id: csvLine.id, age: toInt(csvLine.age), gender: csvLine.gender, occupation: csvLine.occupation, zipcode: csvLine.zipcode })
