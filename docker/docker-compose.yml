@@ -1,27 +1,33 @@
-hystrix:
-  image: kbastani/hystrix-dashboard
-  ports:
-   - "7979:7979"
-  links:
-   - gateway
-   - discovery
+#hystrix:
+#  image: kbastani/hystrix-dashboard
+#  ports:
+#   - "7979:7979"
+#  links:
+#   - gateway
+#   - discovery
 discovery:
   image: kbastani/discovery-microservice
   ports:
    - "8761:8761"
-consulagent:
-  image: progrium/consul
-  ports:
-   - "8500:8500"
-   - "8400:8400"
-   - "8600:53/udp"
-  command: -server -bootstrap-expect 1 -ui-dir /ui
-  net: host
 consul:
   image: kbastani/consul-microservice
   ports:
    - "8000:8000"
-  net: host
+  hostname: consul
+consulagent:
+  image: progrium/consul
+  hostname: consulagent
+  command: -server -data-dir /tmp/consul -bootstrap-expect 1 -join-wan 192.168.59.103
+  ports:
+   - "8500:8500"
+   - "8400:8400"
+   - "8600:8600"
+   - "8301:8301/udp"
+   - "8302:8302/udp"
+   - "8301:8301/tcp"
+   - "8302:8302/tcp"
+   - "53:53/udp"
+   - "53:53/tcp"
 config:
   image: kbastani/config-microservice
   ports:
@@ -35,28 +41,34 @@ gateway:
   links:
    - discovery
    - config
-   - user
-   - movie
+#   - user
+#   - movie
    - recommendation
-user:
-  image: kbastani/users-microservice
-  links:
-   - discovery
-   - config
-movie:
-  image: kbastani/movie-microservice
-  links:
-   - discovery
-   - config
+#user:
+#  image: kbastani/users-microservice
+#  links:
+#   
+#   - discovery
+#   - config
+#movie:
+#  image: kbastani/movie-microservice
+#  links:
+#   
+#   - discovery
+#   - config
 recommendation:
   image: kbastani/recommendation-microservice
   links:
    - discovery
    - config
-moviesui:
-  image: kbastani/movies-ui
+  hostname: recommendation
   ports:
-     - "9006:9006"
-  links:
-   - discovery
-   - config
+    - "9006:9006"
+  dns: "192.168.59.103"
+#moviesui:
+#  image: kbastani/movies-ui
+#  ports:
+#     - "9006:9006"
+#  links:
+#   - discovery
+#   - config

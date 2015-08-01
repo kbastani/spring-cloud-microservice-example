@@ -4,5 +4,13 @@ spring:
   cloud:
     config:
       uri: http://configserver:8888
+    consul:
+      enabled: true
+      host: 192.168.59.103
+      port: 8500
+      discovery:
+        healthCheckPath: /health
+        healthCheckInterval: 15s
+        preferIpAddress: false
 encrypt:
   failOnError: false

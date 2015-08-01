@@ -52,8 +52,6 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class Application implements ApplicationListener<SimpleRemoteEvent> {
 
-	final Logger logger = LoggerFactory.getLogger(Application.class);
-
 	@Autowired
 	private LoadBalancerClient loadBalancer;
 
@@ -66,15 +64,15 @@ public class Application implements ApplicationListener<SimpleRemoteEvent> {
 	@Autowired(required = false)
 	private RelaxedPropertyResolver resolver;
 
-	@Value("${spring.application.name:consul}")
-	private String appName;
-
 	@PostConstruct
 	public void init() {
 		if (resolver == null) {
 			resolver = new RelaxedPropertyResolver(env);
 		}
 	}
+
+	@Value("${spring.application.name:testConsulApp}")
+	private String appName;
 
 	@RequestMapping("/me")
 	public ServiceInstance me() {
@@ -102,9 +100,11 @@ public class Application implements ApplicationListener<SimpleRemoteEvent> {
 	}
 
 	@Bean
-	public ConsulProperties sampleProperties() {
-		return new ConsulProperties();
+	public SampleProperties sampleProperties() {
+		return new SampleProperties();
 	}
+
+	final Logger logger = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

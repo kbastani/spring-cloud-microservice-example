@@ -24,3 +24,4 @@ eureka:
       defaultZone: http://discovery:${server.port}/eureka/
 
 spring.cloud.config.discovery.enabled: true
+spring.cloud.consul.config.enabled: true

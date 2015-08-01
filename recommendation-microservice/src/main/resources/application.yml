@@ -8,6 +8,8 @@ eureka:
   instance:
     preferIpAddress: true
 
+spring.cloud.consul.config.enabled: true
+
 ribbon:
   eureka:
     enabled: true

@@ -2,5 +2,11 @@ spring:
   application:
     name: consul
   cloud:
-    consul:
-        host: consulagent
+      consul:
+        enabled: true
+        host: 192.168.59.103
+        port: 8500
+        discovery:
+          healthCheckPath: /health
+          healthCheckInterval: 15s
+          preferIpAddress: true
