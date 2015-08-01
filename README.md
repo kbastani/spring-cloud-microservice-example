@@ -19,7 +19,7 @@ Each service is built and deployed using Docker. End-to-end integration testing 
 One of the core concepts of this example project is how polyglot persistence can be approached in practice. Microservices in the project use their own database, while integrating with the data from other services through REST or a message bus.
 
 * Neo4j (graph)
-* MongoDB (document)
+* Couchbase (document)
 * MySQL (relational)
 
 ## Microservice architecture
