@@ -59,8 +59,17 @@ public class Application extends Neo4jConfiguration {
             neo4jTemplate().query("CREATE INDEX ON :User(id)", null).finish();
             neo4jTemplate().query("CREATE INDEX ON :Product(id)", null).finish();
             logger.info("Importing ratings data...");
+
             // Import graph data for users
-            String userImport = openFile("static/import-ratings.cypher");
+            String userImport = "USING PERIODIC COMMIT 20000\n" +
+                    "LOAD CSV WITH HEADERS FROM \"http://localhost:9004/ratings.csv\" AS csvLine\n" +
+                    "MERGE (user:User:_User { id: toInt(csvLine.userId) })\n" +
+                    "ON CREATE SET user.__type__=\"User\", user.className=\"data.domain.nodes.User\"\n" +
+                    "MERGE (product:Product:_Product { id: toInt(csvLine.movieId) })\n" +
+                    "ON CREATE SET product.__type__=\"Product\", product.className=\"data.domain.nodes.Product\"\n" +
+                    "MERGE (user)-[r:Rating]->(product)\n" +
+                    "ON CREATE SET r.timestamp = toInt(csvLine.timestamp), r.rating = toInt(csvLine.rating), r.knownId = csvLine.userId + \"_\" + csvLine.movieId, r.__type__ = \"Rating\", r.className = \"data.domain.rels.Rating\"";
+
             neo4jTemplate().query(userImport, null).finish();
             logger.info("Import complete");
         };

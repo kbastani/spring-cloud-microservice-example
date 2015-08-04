@@ -19,6 +19,7 @@
         <module>movie-microservice</module>
         <module>movies-ui</module>
         <module>spring-cloud-platform-components</module>
+        <module>rating-microservice</module>
     </modules>
 
     <parent>

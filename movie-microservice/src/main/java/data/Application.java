@@ -49,10 +49,18 @@ public class Application extends Neo4jConfiguration {
     public CommandLineRunner commandLineRunner() {
         return strings -> {
             // Import graph data for users
-            String movieImport = openFile("static/import-movies.cypher");
+            String movieImport = "LOAD CSV WITH HEADERS FROM \"http://localhost:9005/movies.csv\" AS csvLine\n" +
+                    "MERGE (movie:Movie:_Movie { id: csvLine.id, title: csvLine.title, released: csvLine.timestamp, url: csvLine.url })";
+
             neo4jTemplate().query(movieImport, null).finish();
 
-            String genreImport = openFile("static/import-genre.cypher");
+            String genreImport = "LOAD CSV WITH HEADERS FROM \"http://localhost:9005/movie-genres.csv\" AS csvLine\n" +
+                    "MATCH (movie:Movie { id: csvLine.id })\n" +
+                    "WITH movie, split(csvLine.genres,\";\") as genres\n" +
+                    "FOREACH(g in genres |\n" +
+                    "    MERGE (genre:Genre:_Genre { name: g })\n" +
+                    "    MERGE (movie)-[:HAS_GENRE]->(genre))";
+
             neo4jTemplate().query(genreImport, null).finish();
         };
     }

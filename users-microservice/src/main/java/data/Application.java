@@ -50,7 +50,9 @@ public class Application extends Neo4jConfiguration {
     public CommandLineRunner commandLineRunner() {
         return strings -> {
             // Import graph data for users
-            String userImport = openFile("static/import-users.cypher");
+            String userImport = "LOAD CSV WITH HEADERS FROM \"http://localhost:9000/users.csv\" AS csvLine\n" +
+                    "MERGE (user:User:_User { id: csvLine.id, age: toInt(csvLine.age), gender: csvLine.gender, occupation: csvLine.occupation, zipcode: csvLine.zipcode })";
+
             neo4jTemplate().query(userImport, null).finish();
         };
     }

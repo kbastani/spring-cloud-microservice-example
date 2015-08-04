@@ -1,19 +1,13 @@
 package data.config;
 
 import com.couchbase.client.CouchbaseClient;
-import com.google.common.collect.Lists;
 import net.spy.memcached.FailureMode;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.couchbase.cache.CouchbaseCache;
 import org.springframework.data.couchbase.cache.CouchbaseCacheManager;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.core.CouchbaseFactoryBean;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +15,6 @@ import java.util.List;
 /**
  * Created by kennybastani on 7/31/15.
  */
-@Configuration
 public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
     @Value("${couchbase.cluster.bucket:default}")
     private String bucketName;
@@ -75,6 +68,7 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
 
         couchbaseFactoryBean.setHost(ip);
         couchbaseFactoryBean.setFailureMode(String.valueOf(FailureMode.Cancel));
+
         return couchbaseFactoryBean;
     }
 }

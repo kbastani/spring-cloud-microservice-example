@@ -49,8 +49,6 @@ public class CachingConfiguration implements CachingConfigurer {
             cacheManagers.add(simpleCacheManager);
         }
 
-
-
         compositeCacheManager.setCacheManagers(cacheManagers);
         compositeCacheManager.setFallbackToNoOpCache(true);
 
