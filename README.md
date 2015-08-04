@@ -2,6 +2,8 @@
 
 An example project that demonstrates an end-to-end cloud-native platform using Spring Cloud for building a practical microservices architecture.
 
+
+
 Demonstrated concepts:
 
 * Integration testing using Docker
@@ -21,6 +23,18 @@ One of the core concepts of this example project is how polyglot persistence can
 * Neo4j (graph)
 * MongoDB (document)
 * MySQL (relational)
+
+## Movie Recommendations
+
+This example project focuses on movies and recommendations.
+
+### Data Services
+
+![http://i.imgur.com/NXLHvjR.png](http://i.imgur.com/NXLHvjR.png)
+
+### Domain Data
+
+![http://i.imgur.com/VlwSw2q.png](http://i.imgur.com/VlwSw2q.png)
 
 ## Microservice architecture
 
