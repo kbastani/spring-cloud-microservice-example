@@ -1,5 +1,5 @@
 server:
-  port: 9003
+  port: 9004
 
 eureka:
   client:
@@ -7,8 +7,6 @@ eureka:
       defaultZone: http://discovery:8761/eureka/
   instance:
     preferIpAddress: true
-
-spring.cloud.consul.config.enabled: true
 
 ribbon:
   eureka:
