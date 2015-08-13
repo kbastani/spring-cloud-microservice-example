@@ -1,10 +1,10 @@
 --- 
-config: 
-  image: kbastani/config-microservice
-  links: 
-    - discovery
-  ports: 
-    - "8888:8888"
+#config:
+#  image: kbastani/config-microservice
+#  links:
+#    - discovery
+#  ports:
+#    - "8888:8888"
 #consul:
 #  hostname: consul
 #  image: kbastani/consul-microservice
@@ -28,37 +28,36 @@ config:
 #  image: ncolomer/couchbase
 #  ports:
 #    - "8091:8091"
-discovery: 
-  image: kbastani/discovery-microservice
-  ports: 
-    - "8761:8761"
-gateway: 
-  image: kbastani/api-gateway-microservice
-  links: 
-    - discovery
-    - config
-#    - recommendation
-    - movie
-    - user
-    - rating
-  ports: 
-    - "10000:10000"
-hystrix: 
-  image: kbastani/hystrix-dashboard
-  links: 
-    - gateway
-    - discovery
-  ports: 
-    - "7979:7979"
-movie: 
-#  dns: "192.168.59.103"
+#discovery:
+#  image: kbastani/discovery-microservice
+#  ports:
+#    - "8761:8761"
+#gateway:
+#  image: kbastani/api-gateway-microservice
+#  links:
+#    - discovery
+#    - config
+##    - recommendation
+#    - movie
+#    - user
+#    - rating
+#  ports:
+#    - "10000:10000"
+#hystrix:
+#  image: kbastani/hystrix-dashboard
+#  links:
+#    - gateway
+#    - discovery
+#  ports:
+#    - "7979:7979"
+movie:
   hostname: movie
   image: kbastani/movie-microservice
-  links: 
-    - discovery
-    - config
+#  links:
+#    - discovery
+#    - config
   ports: 
-    - "9005:9005"
+    - "9006:9006"
 #moviesui:
 #  image: kbastani/movies-ui
 #  links:
@@ -66,27 +65,26 @@ movie:
 #    - config
 #  ports:
 #    - "9006:9006"
-rating: 
-#  dns: "192.168.59.103"
+rating:
   hostname: rating
   image: kbastani/rating-microservice
-  links: 
-    - discovery
-    - config
-  ports: 
-    - "9004:9004"
-#recommendation:
-#  dns: "192.168.59.103"
-#  hostname: recommendation
-#  image: kbastani/recommendation-microservice
 #  links:
 #    - discovery
 #    - config
-#  ports:
-#    - "9006:9006"
-user: 
-  image: kbastani/users-microservice
-  links: 
-    #- couchbase
-    - discovery
-    - config
+  ports:
+    - "9004:9004"
+##recommendation:
+##  dns: "192.168.59.103"
+##  hostname: recommendation
+##  image: kbastani/recommendation-microservice
+##  links:
+##    - discovery
+##    - config
+##  ports:
+##    - "9006:9006"
+#user:
+#  image: kbastani/users-microservice
+#  links:
+#    #- couchbase
+#    - discovery
+#    - config

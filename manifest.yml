@@ -1,0 +1,26 @@
+---
+applications:
+- name: config
+  memory: 512M
+  instances: 1
+  host: config-99
+  domain: cfapps.io
+  path: ./config-microservice/target/config-microservice-0.1.0.jar
+- name: discovery
+  memory: 512M
+  instances: 1
+  host: discovery-77
+  domain: cfapps.io
+  path: ./discovery-microservice/target/discovery-microservice-0.1.0.jar
+- name: gateway
+  memory: 512M
+  instances: 1
+  host: gateway-77
+  domain: cfapps.io
+  path: ./api-gateway-microservice/target/api-gateway-microservice-0.1.0.jar
+- name: movie
+  memory: 1G
+  instances: 1
+  host: movie-77
+  domain: cfapps.io
+  path: ./movie-microservice/target/movie-microservice-0.1.0.jar

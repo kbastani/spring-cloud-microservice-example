@@ -1,13 +1,18 @@
+spring:
+  profiles.active: default
+---
+spring:
+  profiles: default
 server:
   port: 9004
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-  instance:
-    preferIpAddress: true
-
-ribbon:
-  eureka:
-    enabled: true
+neo4j:
+  uri: http://192.168.59.103:7474/db/data/
+  username: neo4j
+  password: graphdb
+aws:
+  s3:
+    url: https://s3.amazonaws.com/dataset-demos
+httpClient:
+  timeout: 3s
+  connectionTimeout: 3s
+  timeToLive: 10m

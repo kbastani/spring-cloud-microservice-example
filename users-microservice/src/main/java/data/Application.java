@@ -18,11 +18,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 @SpringBootApplication
 @EnableNeo4jRepositories
 @EnableDiscoveryClient
@@ -55,28 +50,6 @@ public class Application extends Neo4jConfiguration {
 
             neo4jTemplate().query(userImport, null).finish();
         };
-    }
-
-    private String openFile(String path) throws IOException {
-
-        ClassLoader classLoader = getClass().getClassLoader();
-
-        File file = new File(classLoader.getResource(path).getFile());
-
-        String everything;
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-            }
-            everything = sb.toString();
-        }
-
-        return everything;
     }
 
     @Bean

@@ -1,8 +1,7 @@
 spring:
   application:
     name: movie
-  cloud:
-    config:
-      uri: http://configserver:8888
+  profiles:
+    active: default
 encrypt:
   failOnError: false

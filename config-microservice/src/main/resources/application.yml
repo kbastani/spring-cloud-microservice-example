@@ -8,7 +8,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 spring:
   cloud:
@@ -16,3 +16,7 @@ spring:
       server:
         git:
           uri: https://github.com/kbastani/spring-boot-microservice-config
+        health:
+          repositories:
+            movie:
+              label: master

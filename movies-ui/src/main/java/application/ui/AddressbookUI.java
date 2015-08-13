@@ -20,7 +20,9 @@ import javax.servlet.annotation.WebServlet;
 @Theme("valo")
 public class AddressbookUI extends UI {
 
-    /* Hundreds of widgets.
+	private static final long serialVersionUID = -3540851800967573466L;
+	
+	/* Hundreds of widgets.
      * Vaadin's user interface components are just Java objects that encapsulate
      * and handle cross-browser support and client-server communication. The
      * default Vaadin components are in the com.vaadin.ui package and there
@@ -131,6 +133,11 @@ public class AddressbookUI extends UI {
     @WebServlet(urlPatterns = "/*")
     @VaadinServletConfiguration(ui = AddressbookUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -20648475329898675L;
     }
 
 

@@ -9,6 +9,11 @@ import java.util.Set;
 @NodeEntity
 public class User implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -100759321281659379L;
+
 	@GraphId
 	Long id;
 

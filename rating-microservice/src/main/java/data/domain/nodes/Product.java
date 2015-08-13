@@ -1,6 +1,7 @@
 package data.domain.nodes;
 
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 @NodeEntity
@@ -18,6 +19,9 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Indexed
+    private String knownId;
 
     @Override
     public boolean equals(Object o) {

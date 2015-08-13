@@ -18,3 +18,9 @@ hs_err_pid*
 
 build/
 target/
+*.prefs
+*.classpath
+.settings/
+.factorypath
+
+.project

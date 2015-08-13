@@ -1,18 +1,16 @@
 package data.domain.nodes;
 
-import data.domain.rels.Rating;
-import org.neo4j.graphdb.Direction;
-import org.springframework.data.neo4j.annotation.*;
-
-import java.util.Set;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
 @NodeEntity
 public class User {
     @GraphId
     private Long id;
 
-    @RelatedToVia(type = "Rating", direction = Direction.OUTGOING, elementClass = Rating.class)
-    Set<Rating> ratings;
+    @Indexed
+    private String knownId;
 
     public User() {
     }
