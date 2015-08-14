@@ -1,6 +1,6 @@
 package data.repositories;
 
-import data.domain.nodes.User;
+import data.domain.entity.User;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.neo4j.repository.GraphRepository;

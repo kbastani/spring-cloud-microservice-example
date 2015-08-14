@@ -1,6 +1,6 @@
 package data;
 
-import data.domain.nodes.User;
+import data.domain.entity.User;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.springframework.boot.CommandLineRunner;

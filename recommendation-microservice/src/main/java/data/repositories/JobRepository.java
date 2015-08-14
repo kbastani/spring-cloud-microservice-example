@@ -1,6 +1,6 @@
 package data.repositories;
 
-import data.domain.nodes.Job;
+import data.domain.entity.Job;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

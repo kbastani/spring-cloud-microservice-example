@@ -1,8 +1,8 @@
 package data;
 
 import config.GraphDatabaseConfiguration;
-import data.domain.nodes.Product;
-import data.domain.nodes.User;
+import data.domain.entity.Product;
+import data.domain.entity.User;
 import data.domain.rels.Rating;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

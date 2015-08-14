@@ -1,7 +1,7 @@
 package data.domain.rels;
 
-import data.domain.nodes.Job;
-import data.domain.nodes.Event;
+import data.domain.entity.Job;
+import data.domain.entity.Event;
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
