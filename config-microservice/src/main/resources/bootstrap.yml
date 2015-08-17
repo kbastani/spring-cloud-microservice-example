@@ -1,3 +1,18 @@
 spring:
+  profiles.active: cloud
+---
+spring:
+  profiles:
+    name: cloud
   application:
     name: configserver
+encrypt:
+  failOnError: false
+---
+spring:
+  profiles:
+    name: development
+  application:
+    name: configserver
+encrypt:
+  failOnError: false

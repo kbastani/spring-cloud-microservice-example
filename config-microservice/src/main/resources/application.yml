@@ -1,6 +1,28 @@
+spring:
+  profiles.active: cloud
+---
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      discovery:
+        enabled: true
+    server:
+      git:
+        uri: https://github.com/kbastani/spring-boot-microservice-config
+      health:
+        repositories:
+          movie:
+            label: master
 server:
   port: 8888
-
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
 eureka:
   instance:
     hostname: configserver
@@ -8,9 +30,10 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
+      defaultZone: http://discovery-77.cfapps.io/eureka/
+---
 spring:
+  profiles: development
   cloud:
     config:
       server:
@@ -20,3 +43,20 @@ spring:
           repositories:
             movie:
               label: master
+server:
+  port: 8888
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+eureka:
+  instance:
+    hostname: configserver
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/

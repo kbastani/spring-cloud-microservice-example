@@ -19,7 +19,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://discovery-77.cfapps.io/eureka
+      defaultZone: http://discovery-77.cfapps.io/eureka/
 ---
 spring:
   profiles: development
