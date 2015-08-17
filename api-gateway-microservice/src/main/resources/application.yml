@@ -1,6 +1,10 @@
+spring:
+  profiles.active: cloud
+---
+spring:
+  profiles: cloud
 server:
   port: 10000
-
 endpoints:
   restart:
     enabled: true
@@ -8,7 +12,26 @@ endpoints:
     enabled: true
   health:
     sensitive: false
-
+eureka:
+  instance:
+    hostname: gateway
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery-77.cfapps.io/eureka
+---
+spring:
+  profiles: development
+server:
+  port: 10000
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
 eureka:
   instance:
     hostname: gateway

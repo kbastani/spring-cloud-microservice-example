@@ -1,3 +1,24 @@
 spring:
+  profiles.active: cloud
+---
+spring:
+  profiles:
+    name: cloud
   application:
     name: discovery
+  cloud:
+    config:
+      uri: http://config-99.cfapps.io
+encrypt:
+  failOnError: false
+---
+spring:
+  profiles:
+    name: development
+  application:
+    name: discovery
+  cloud:
+    config:
+      uri: http://configserver:8888
+encrypt:
+  failOnError: false

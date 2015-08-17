@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 
@@ -23,12 +22,9 @@ public class Application {
     @Autowired
     private RepositoryRestMvcConfiguration repositoryRestConfiguration;
 
-    @Autowired
-    private RepositoryRestConfiguration restConfiguration;
-
     @PostConstruct
     public void postConstructConfiguration() {
         repositoryRestConfiguration.objectMapper().registerModule(new Jackson2HalModule());
-        restConfiguration.exposeIdsFor(Movie.class);
+        repositoryRestConfiguration.config().exposeIdsFor(Movie.class);
     }
 }

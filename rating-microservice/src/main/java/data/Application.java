@@ -7,21 +7,24 @@ import data.domain.rels.Rating;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -29,10 +32,14 @@ import java.net.URISyntaxException;
 @ComponentScan(basePackages = {"data", "config"})
 @EnableNeo4jRepositories
 @EnableTransactionManagement(mode = AdviceMode.PROXY)
+@EnableDiscoveryClient
 @Slf4j
 public class Application {
 
     final Logger logger = LoggerFactory.getLogger(Application.class);
+
+    @Autowired
+    RepositoryRestMvcConfiguration restConfiguration;
 
     // Used to bootstrap the Neo4j database with demo data
     @Value("${aws.s3.url}")
@@ -40,14 +47,20 @@ public class Application {
 
     public static void main(String[] args) {
         System.setProperty("org.neo4j.rest.read_timeout", "250");
+        SpringApplication.run(Application.class, args);
+    }
 
-        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
+    @PostConstruct
+    public void postConstructConfiguration() {
+        // Expose ids for the domain entities having repositories
+        logger.info("Exposing IDs on repositories...");
+        restConfiguration.config().exposeIdsFor(User.class);
+        restConfiguration.config().exposeIdsFor(Product.class);
+        restConfiguration.config().exposeIdsFor(Rating.class);
 
-        // This tells the Spring Data REST repositories to expose the ID of entities
-        RepositoryRestConfiguration restConfiguration = ctx.getBean("config", RepositoryRestConfiguration.class);
-        restConfiguration.exposeIdsFor(User.class);
-        restConfiguration.exposeIdsFor(Product.class);
-        restConfiguration.exposeIdsFor(Rating.class);
+        // Register the ObjectMapper module for properly rendering HATEOAS REST repositories
+        logger.info("Registering Jackson2HalModule...");
+        restConfiguration.objectMapper().registerModule(new Jackson2HalModule());
     }
 
     /**
@@ -65,7 +78,7 @@ public class Application {
             graphDatabaseConfiguration.neo4jTemplate().query("CREATE INDEX ON :Product(id)", null).finish();
             logger.info("Importing ratings data...");
 
-            // Import graph data for users
+            // Import graph data for movie ratings
             String userImport = String.format("USING PERIODIC COMMIT 20000\n" +
                     "LOAD CSV WITH HEADERS FROM \"%s/ratings.csv\" AS csvLine\n" +
                     "MERGE (user:User:_User { id: toInt(csvLine.userId) })\n" +
@@ -75,11 +88,9 @@ public class Application {
                     "MERGE (user)-[r:Rating]->(product)\n" +
                     "ON CREATE SET r.timestamp = toInt(csvLine.timestamp), r.rating = toInt(csvLine.rating), r.knownId = csvLine.userId + \"_\" + csvLine.movieId, r.__type__ = \"Rating\", r.className = \"data.domain.rels.Rating\"", datasetUrl);
 
-
             graphDatabaseConfiguration.neo4jTemplate().query(userImport, null).finish();
             logger.info("Import complete");
         };
-
     }
 
     @Bean
@@ -99,6 +110,4 @@ public class Application {
             }
         };
     }
-
-
 }

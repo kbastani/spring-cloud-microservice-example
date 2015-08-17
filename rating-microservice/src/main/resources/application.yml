@@ -1,10 +1,42 @@
 spring:
-  profiles.active: default
+  profiles.active: cloud
 ---
 spring:
-  profiles: default
+  profiles: cloud
+  server:
+    port: 9004
+neo4j:
+  uri: http://ec2-54-149-137-3.us-west-2.compute.amazonaws.com:7474/db/data/
+  username: neo4j
+  password: graphdb
+aws:
+  s3:
+    url: https://s3.amazonaws.com/dataset-demos
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-77.cfapps.io/eureka
+  instance:
+    preferIpAddress: true
+    hostname: rating
+ribbon:
+  eureka:
+    enabled: true
+---
+spring:
+  profiles: development
 server:
   port: 9004
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    hostname: rating
+ribbon:
+  eureka:
+    enabled: true
 neo4j:
   uri: http://192.168.59.103:7474/db/data/
   username: neo4j
@@ -12,7 +44,3 @@ neo4j:
 aws:
   s3:
     url: https://s3.amazonaws.com/dataset-demos
-httpClient:
-  timeout: 3s
-  connectionTimeout: 3s
-  timeToLive: 10m

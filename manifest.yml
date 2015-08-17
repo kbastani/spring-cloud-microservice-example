@@ -24,3 +24,9 @@ applications:
   host: movie-77
   domain: cfapps.io
   path: ./movie-microservice/target/movie-microservice-0.1.0.jar
+- name: rating
+  memory: 1G
+  instances: 1
+  host: rating-77
+  domain: cfapps.io
+  path: ./rating-microservice/target/rating-microservice-0.1.0.jar
