@@ -1,7 +1,24 @@
 spring:
+  profiles.active: cloud
+---
+spring:
+  profiles:
+    name: cloud
   application:
     name: movie
+  cloud:
+    config:
+      uri: http://config-99.cfapps.io
+encrypt:
+  failOnError: false
+---
+spring:
   profiles:
-    active: default
+    name: development
+  application:
+    name: movie
+  cloud:
+    config:
+      uri: http://configserver:8888
 encrypt:
   failOnError: false
