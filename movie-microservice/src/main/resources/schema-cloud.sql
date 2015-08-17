@@ -1,6 +1,6 @@
+DROP TABLE IF EXISTS movie_genre;
 DROP TABLE IF EXISTS genre;
 DROP TABLE IF EXISTS movie;
-DROP TABLE IF EXISTS movie_genre;
 
 CREATE TABLE genre
 (

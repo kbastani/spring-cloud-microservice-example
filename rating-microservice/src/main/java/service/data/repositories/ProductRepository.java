@@ -1,6 +1,6 @@
-package data.repositories;
+package service.data.repositories;
 
-import data.domain.entity.Product;
+import service.data.domain.entity.Product;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

@@ -8,7 +8,7 @@ spring:
     name: gateway
   cloud:
     config:
-      uri: http://config-99.cfapps.io
+      uri: http://config-99.cfapps.io/
 encrypt:
   failOnError: false
 ---

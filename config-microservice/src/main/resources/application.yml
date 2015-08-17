@@ -2,18 +2,21 @@ spring:
   profiles.active: cloud
 ---
 spring:
-  profiles: cloud
+  profiles:
+    name: cloud
   cloud:
     config:
       discovery:
         enabled: true
-    server:
-      git:
-        uri: https://github.com/kbastani/spring-boot-microservice-config
-      health:
-        repositories:
-          movie:
-            label: master
+      server:
+        git:
+          uri: https://github.com/kbastani/spring-boot-microservice-config
+        health:
+          repositories:
+            movie:
+              label: master
+            rating:
+              label: master
 server:
   port: 8888
 endpoints:
@@ -25,7 +28,8 @@ endpoints:
     sensitive: false
 eureka:
   instance:
-    hostname: configserver
+    hostname: config-99.cfapps.io
+    nonSecurePort: 80
   client:
     registerWithEureka: true
     fetchRegistry: true

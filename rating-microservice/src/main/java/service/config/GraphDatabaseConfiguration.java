@@ -1,4 +1,4 @@
-package config;
+package service.config;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,19 +6,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import org.springframework.data.neo4j.rest.SpringCypherRestGraphDatabase;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Kenny Bastani
  *
  * Manages the configuration for a Neo4j graph database server
  */
-@EnableNeo4jRepositories
+@EnableNeo4jRepositories(basePackages = "service.data")
+@EnableTransactionManagement(mode = AdviceMode.PROXY)
 @EnableConfigurationProperties
 @Configuration
 @ConfigurationProperties
@@ -38,7 +41,7 @@ public class GraphDatabaseConfiguration extends Neo4jConfiguration {
 
     public GraphDatabaseConfiguration() {
         super();
-        setBasePackage("data", "config");
+        setBasePackage("service.data", "service.config");
     }
 
     public String getUrl() {

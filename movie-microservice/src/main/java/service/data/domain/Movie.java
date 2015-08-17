@@ -1,4 +1,4 @@
-package data.domain;
+package service.data.domain;
 
 import org.springframework.data.rest.core.annotation.RestResource;
 

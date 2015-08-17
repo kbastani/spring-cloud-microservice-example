@@ -1,4 +1,4 @@
-package data.domain;
+package service.data.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

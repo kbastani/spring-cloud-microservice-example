@@ -8,11 +8,25 @@ spring:
     database: MYSQL
     hibernate:
       ddl-auto: none
-  datasource:
-    url: jdbc:mysql://ec2-54-149-137-3.us-west-2.compute.amazonaws.com/demo
-    username: demo_user
-    password: demo_pass
-    driver-class-name: com.mysql.jdbc.Driver
+server:
+  port: 9006
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-77.cfapps.io/eureka/
+  instance:
+    hostname: movie-77.cfapps.io
+    nonSecurePort: 80
+ribbon:
+  eureka:
+    enabled: true
+---
+spring:
+  profiles: development
+  jpa:
+    show_sql: false
+    hibernate:
+      ddl-auto: update
 server:
   port: 9006
 eureka:
@@ -23,18 +37,4 @@ eureka:
     preferIpAddress: true
 ribbon:
   eureka:
-    enabled: true
----
-spring:
-  profiles: development
-server:
-  port: 9006
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-  instance:
-    preferIpAddress: true
-ribbon:
-  eureka:
-    enabled: true
+    enabled: false

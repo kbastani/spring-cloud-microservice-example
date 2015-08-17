@@ -5,16 +5,9 @@ spring:
   profiles: cloud
 server:
   port: 10000
-endpoints:
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
-  health:
-    sensitive: false
 eureka:
   instance:
-    hostname: gateway
+    hostname: gateway-77.cfapps.io
   client:
     registerWithEureka: true
     fetchRegistry: true

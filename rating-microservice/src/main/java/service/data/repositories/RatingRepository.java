@@ -1,6 +1,6 @@
-package data.repositories;
+package service.data.repositories;
 
-import data.domain.rels.Rating;
+import service.data.domain.rels.Rating;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.annotation.Query;

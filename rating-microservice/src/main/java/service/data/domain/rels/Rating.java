@@ -1,7 +1,7 @@
-package data.domain.rels;
+package service.data.domain.rels;
 
-import data.domain.entity.User;
-import data.domain.entity.Product;
+import service.data.domain.entity.User;
+import service.data.domain.entity.Product;
 import org.springframework.data.neo4j.annotation.*;
 
 @RelationshipEntity(type = "Rating")

@@ -1,5 +1,6 @@
-package config;
+package service.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -13,19 +14,19 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "data.repositories")
+@EnableJpaRepositories(basePackages = "service.data.repositories")
 @EnableTransactionManagement
-class ApplicationConfig {
+@EnableConfigurationProperties
+public class ApplicationConfig {
 
     @Bean
     public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
-
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("data.domain");
+        factory.setPackagesToScan("service.data.domain");
         factory.setDataSource(dataSource);
         factory.afterPropertiesSet();
 

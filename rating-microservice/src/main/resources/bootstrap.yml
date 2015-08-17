@@ -1,5 +1,6 @@
 spring:
-  profiles.active: cloud
+  profiles:
+    active: cloud
 ---
 spring:
   profiles:
@@ -8,17 +9,7 @@ spring:
     name: rating
   cloud:
     config:
-      uri: http://config-99.cfapps.io
-encrypt:
-  failOnError: false
----
-spring:
-  profiles:
-    name: development
-  application:
-    name: rating
-  cloud:
-    config:
-      uri: http://configserver:8888
+      uri: http://config-99.cfapps.io/
+      enabled: true
 encrypt:
   failOnError: false

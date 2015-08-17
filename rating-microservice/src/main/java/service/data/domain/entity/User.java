@@ -1,4 +1,4 @@
-package data.domain.entity;
+package service.data.domain.entity;
 
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;

@@ -1,6 +1,6 @@
-package data.repositories;
+package service.data.repositories;
 
-import data.domain.Movie;
+import service.data.domain.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
