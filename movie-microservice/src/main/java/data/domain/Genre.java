@@ -1,26 +1,21 @@
 package data.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "genre")
 public class Genre implements Serializable {
-    private static final long serialVersionUID = -5216130437873456233L;
+
+    private static final long serialVersionUID = -1952735933715107252L;
 
     @Id
-    @JsonProperty("id")
     @Column(name = "id")
     @GeneratedValue
-    private Long id;
+    Long id;
 
-    @JsonProperty("name")
     @Column(name = "name")
-    private String name;
+    String name;
 
     public Genre() {
     }

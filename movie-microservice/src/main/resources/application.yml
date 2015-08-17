@@ -1,25 +1,22 @@
 spring:
   profiles.active: default
 ---
-
 spring:
   profiles: default
   jpa:
-    show_sql: true
+    show_sql: false
     database: MYSQL
     hibernate:
       ddl-auto: none
   datasource:
-      url: jdbc:mysql://192.168.59.103/demo
-      username: demo_user
-      password: demo_pass
-      driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://ec2-54-149-137-3.us-west-2.compute.amazonaws.com/demo
+    username: demo_user
+    password: demo_pass
+    driver-class-name: com.mysql.jdbc.Driver
 server:
   port: 9006
-neo4j:
-  uri: http://ec2-54-149-137-3.us-west-2.compute.amazonaws.com:7474/db/data/
-  username: neo4j
-  password: graphdb
-aws:
-  s3:
-    url: https://s3.amazonaws.com/dataset-demos
+---
+spring:
+  profiles: test
+server:
+  port: 9006
