@@ -1,9 +1,10 @@
 spring:
-  profiles.active: cloud
----
-spring:
   profiles:
-    name: cloud
+    active: cloud
+---
+
+spring:
+  profiles: cloud
   application:
     name: gateway
   cloud:
@@ -11,10 +12,11 @@ spring:
       uri: http://config-99.cfapps.io/
 encrypt:
   failOnError: false
+
 ---
+
 spring:
-  profiles:
-    name: development
+  profiles: development
   application:
     name: gateway
   cloud:

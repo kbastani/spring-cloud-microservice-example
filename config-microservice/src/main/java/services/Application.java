@@ -1,17 +1,17 @@
 package services;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.config.server.EnableConfigServer;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-@Configuration
-@EnableAutoConfiguration
-@EnableDiscoveryClient
+@SpringBootApplication
 @EnableConfigServer
+@EnableEurekaClient
+@EnableZuulProxy
 public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+        new SpringApplicationBuilder(Application.class).web(true).run(args);
 	}
 }

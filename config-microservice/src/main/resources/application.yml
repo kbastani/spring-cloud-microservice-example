@@ -1,5 +1,6 @@
 spring:
-  profiles.active: cloud
+  profiles:
+    active: cloud
 ---
 spring:
   profiles:
@@ -15,52 +16,12 @@ spring:
           repositories:
             movie:
               label: master
+              profiles: cloud
             rating:
               label: master
+              profiles: cloud
 server:
   port: 8888
-endpoints:
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
-  health:
-    sensitive: false
-eureka:
-  instance:
-    hostname: config-99.cfapps.io
-    nonSecurePort: 80
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://discovery-77.cfapps.io/eureka/
----
-spring:
-  profiles: development
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/kbastani/spring-boot-microservice-config
-        health:
-          repositories:
-            movie:
-              label: master
-server:
-  port: 8888
-endpoints:
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
-  health:
-    sensitive: false
-eureka:
-  instance:
-    hostname: configserver
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+info:
+  description: Config Server
+  url: https://github.com/kbastani/spring-cloud-microservice-example

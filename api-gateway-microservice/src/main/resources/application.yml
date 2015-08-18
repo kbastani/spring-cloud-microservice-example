@@ -1,19 +1,31 @@
 spring:
-  profiles.active: cloud
+  profiles:
+    active: cloud
 ---
+
 spring:
   profiles: cloud
 server:
   port: 10000
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
 eureka:
   instance:
     hostname: gateway-77.cfapps.io
+    nonSecurePort: 80
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery-77.cfapps.io/eureka/
+
 ---
+
 spring:
   profiles: development
 server:

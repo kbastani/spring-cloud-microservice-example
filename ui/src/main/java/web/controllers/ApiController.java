@@ -6,4 +6,5 @@ package web.controllers;
  * This is the BFF (Backend for frontend) for SpringFlix
  */
 public class ApiController {
+
 }

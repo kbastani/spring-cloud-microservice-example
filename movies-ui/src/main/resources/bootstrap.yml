@@ -1,8 +1,24 @@
 spring:
+  profiles:
+    active: cloud
+
+---
+
+spring:
+  profiles: cloud
   application:
     name: moviesui
   cloud:
     config:
-      uri: http://configserver:8888
+      uri: http://config-99.cfapps.io/
+encrypt:
+  failOnError: false
+
+---
+
+spring:
+  profiles: development
+  application:
+    name: moviesui
 encrypt:
   failOnError: false

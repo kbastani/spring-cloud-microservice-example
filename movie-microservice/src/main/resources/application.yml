@@ -1,5 +1,6 @@
 spring:
-  profiles.active: cloud
+  profiles:
+    active: cloud
 ---
 spring:
   profiles: cloud

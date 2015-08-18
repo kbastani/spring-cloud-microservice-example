@@ -33,5 +33,11 @@ applications:
   host: rating-77
   domain: cfapps.io
   path: ./rating-microservice/target/rating-microservice-0.1.0.jar
-
+- name: moviesui
+  memory: 1G
+  instances: 1
+  timeout: 180
+  host: moviesui-77
+  domain: cfapps.io
+  path: ./movies-ui/target/movies-ui-0.1.0.jar
 
