@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: cloud
+---
+spring:
+  profiles: cloud
+  application:
+    name: configServer
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/kbastani/spring-boot-microservice-config
+encrypt:
+  failOnError: false
+eureka:
+  instance:
+    statusPageUrlPath: ${management.context-path}/info
+    healthCheckUrlPath: ${management.context-path}/health
+    hostname: config-99.cfapps.io
+    nonSecurePort: 80
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery-77.cfapps.io/eureka/
+info:
+  description: Config Server
+  url: https://github.com/kbastani/spring-cloud-microservice-example
