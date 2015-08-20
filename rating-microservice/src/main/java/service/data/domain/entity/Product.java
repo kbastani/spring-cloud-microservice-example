@@ -23,6 +23,14 @@ public class Product {
     @Indexed
     private String knownId;
 
+    public String getKnownId() {
+        return knownId;
+    }
+
+    public void setKnownId(String knownId) {
+        this.knownId = knownId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

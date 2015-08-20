@@ -9,18 +9,13 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>users-microservice</module>
+        <module>user-microservice</module>
         <module>discovery-microservice</module>
         <module>api-gateway-microservice</module>
-        <module>recommendation-microservice</module>
         <module>config-microservice</module>
-        <module>hystrix-dashboard</module>
-        <module>consul-microservice</module>
         <module>movie-microservice</module>
-        <module>movies-ui</module>
-        <module>spring-cloud-platform-components</module>
+        <module>ui-search</module>
         <module>rating-microservice</module>
-        <module>ui</module>
     </modules>
 
     <parent>
@@ -55,7 +50,7 @@
         <repository>
             <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
-            <url>http://repo.spring.io/libs-snapshot-local</url>
+            <url>http://repo.spring.io/libs-snapshot</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>

@@ -13,4 +13,5 @@ import service.data.domain.Movie;
  */
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     Page<Movie> findByTitleContainingIgnoreCase(@Param("title")String title, Pageable pageable);
+    Page<Movie> findByIdIn(@Param("ids")Long[] ids, Pageable pageable);
 }

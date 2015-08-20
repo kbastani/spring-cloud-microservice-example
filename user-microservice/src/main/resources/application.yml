@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: cloud
+---
+spring:
+  profiles: cloud
+server:
+  port: 9000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-77.cfapps.io/eureka/
+  instance:
+    hostname: user-77.cfapps.io
+    nonSecurePort: 80
+ribbon:
+  eureka:
+    enabled: true
+aws:
+  s3:
+    url: https://s3.amazonaws.com/dataset-demos
+---
+spring:
+  profiles: development
+server:
+  port: 9000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    preferIpAddress: true
+ribbon:
+  eureka:
+    enabled: true
+aws:
+  s3:
+    url: https://s3.amazonaws.com/dataset-demos

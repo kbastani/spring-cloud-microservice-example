@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: hystrixdashboard
-  cloud:
-    config:
-      uri: http://configserver:8888
-      

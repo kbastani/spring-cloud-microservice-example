@@ -15,6 +15,10 @@ public interface RatingRepository extends PagingAndSortingRepository<Rating, Lon
     Page<Rating> findAll(Pageable pageable);
 
     @RestResource(path = "users", rel = "users")
-    @Query(value = "MATCH (n:User)-[r:Rating]->() WHERE id(n) = {id} RETURN r")
+    @Query(value = "MATCH (n:User)-[r:Rating]->() WHERE n.knownId = {id} RETURN r")
     Iterable<Rating> findByUserId(@Param(value = "id") Long id);
+
+    @RestResource(path = "average", rel = "users")
+    @Query(value = "MATCH (n:User)-[r:Rating]->() WHERE n.knownId = {id} RETURN avg(toFloat(r.rating))")
+    Double getAverageRating(@Param(value = "id") String id);
 }

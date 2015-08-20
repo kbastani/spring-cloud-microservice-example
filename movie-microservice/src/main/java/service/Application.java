@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import org.springframework.hateoas.hal.Jackson2HalModule;
 import service.data.domain.Movie;
 
 import javax.annotation.PostConstruct;
@@ -25,7 +24,7 @@ public class Application {
 
     @PostConstruct
     public void postConstructConfiguration() {
-        repositoryRestConfiguration.objectMapper().registerModule(new Jackson2HalModule());
+        //repositoryRestConfiguration.objectMapper().registerModule(new Jackson2HalModule());
         repositoryRestConfiguration.config().exposeIdsFor(Movie.class);
     }
 }
