@@ -2,7 +2,7 @@
 
 An example project that demonstrates an end-to-end cloud-native platform using Spring Cloud for building a practical microservices architecture.
 
-
+Tutorial available here: [Building Microservices with Spring Cloud and Docker](http://www.kennybastani.com/2015/07/spring-cloud-docker-microservices.html)
 
 Demonstrated concepts:
 
