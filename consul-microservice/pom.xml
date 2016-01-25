@@ -9,6 +9,7 @@
     <groupId>org.kbastani</groupId>
     <properties>
         <docker.image.prefix>kbastani</docker.image.prefix>
+        <docker.plugin.version>0.3.258</docker.plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -81,7 +82,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.2.3</version>
+                <version>${docker.plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
