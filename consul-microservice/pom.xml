@@ -9,7 +9,7 @@
     <groupId>org.kbastani</groupId>
     <properties>
         <docker.image.prefix>kbastani</docker.image.prefix>
-        <docker.plugin.version>0.3.258</docker.plugin.version>
+        <docker.plugin.version>0.4.13</docker.plugin.version>
     </properties>
     <dependencies>
         <dependency>
