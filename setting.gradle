@@ -1,0 +1,9 @@
+include 'users-microservice',
+        'discovery-microservice',
+        'api-gateway-microservice'
+        'recommendation-microservice'
+        'config-microservice'
+        'hystrix-dashboard'
+        'consul-microservice'
+        'movie-microservice'
+        'movies-ui'
