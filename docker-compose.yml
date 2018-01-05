@@ -1,0 +1,98 @@
+---
+version: '2'
+services:
+  movies-neo4j:
+    image: neo4j:latest
+    networks:
+     - microservices
+    environment:
+      NEO4J_AUTH: none
+  movies-ui-neo4j:
+    image: neo4j:latest
+    networks:
+     - microservices
+    environment:
+      NEO4J_AUTH: none
+  recommendation-neo4j:
+    image: neo4j:latest
+    networks:
+     - microservices
+    environment:
+      NEO4J_AUTH: none
+  users-neo4j:
+    image: neo4j:latest
+    networks:
+     - microservices
+    environment:
+      NEO4J_AUTH: none
+  hystrix:
+    image: hystrix-dashboard:latest
+    networks:
+     - microservices
+    ports:
+     - "7979:7979"
+    depends_on:
+     - gateway
+     - discovery
+  discovery:
+    image: discovery-microservice:latest
+    networks:
+     - microservices
+    ports:
+     - "8761:8761"
+  configserver:
+    image: config-microservice:latest
+    networks:
+     - microservices
+    ports:
+     - "8888:8888"
+    depends_on:
+     - discovery
+  gateway:
+    image: api-gateway-microservice:latest
+    networks:
+     - microservices
+    ports:
+     - "10000:10000"
+    depends_on:
+     - discovery
+     - configserver
+     - user
+     - movie
+     - recommendation
+  user:
+    image: users-microservice:latest
+    networks:
+     - microservices
+    depends_on:
+     - discovery
+     - configserver
+     - users-neo4j
+  movie:
+    image: movie-microservice:latest
+    networks:
+     - microservices
+    depends_on:
+     - discovery
+     - configserver
+     - movies-neo4j
+  recommendation:
+    image: recommendation-microservice:latest
+    networks:
+     - microservices
+    depends_on:
+     - discovery
+     - configserver
+     - recommendation-neo4j
+  moviesui:
+    image: movies-ui:latest
+    networks:
+     - microservices
+    ports:
+     - "9006:9006"
+    depends_on:
+     - discovery
+     - configserver
+     - movies-ui-neo4j
+networks:
+  microservices:

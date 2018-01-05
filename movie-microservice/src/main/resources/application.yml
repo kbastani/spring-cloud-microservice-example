@@ -1,13 +1,21 @@
+spring:
+  application:
+    name: movie
+  profiles:
+    active: development
 server:
   port: 9005
-
+---
+spring:
+  profiles: development
+  data:
+    neo4j:
+      uri: http://movies-neo4j:7474
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
-  instance:
-    preferIpAddress: true
-
-ribbon:
-  eureka:
-    enabled: true

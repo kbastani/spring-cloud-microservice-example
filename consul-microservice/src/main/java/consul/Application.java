@@ -25,13 +25,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import org.springframework.cloud.bus.jackson.SubtypeModule;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.cloud.consul.bus.SimpleRemoteEvent;
-import org.springframework.cloud.ui.EnableConsulUi;
+import org.springframework.cloud.consul.ConsulProperties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
@@ -46,13 +46,12 @@ import javax.annotation.PostConstruct;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableConsulUi
 @RestController
 @EnableConfigurationProperties
 @Slf4j
-public class Application implements ApplicationListener<SimpleRemoteEvent> {
+public class Application implements ApplicationListener<RemoteApplicationEvent> {
 
-	final Logger logger = LoggerFactory.getLogger(Application.class);
+	private final Logger logger = LoggerFactory.getLogger(Application.class);
 
 	@Autowired
 	private LoadBalancerClient loadBalancer;
@@ -93,12 +92,12 @@ public class Application implements ApplicationListener<SimpleRemoteEvent> {
 
 	@RequestMapping("/prop")
 	public String prop() {
-		return sampleProperties().getProp();
+		return sampleProperties().toString();
 	}
 
 	@Bean
 	public SubtypeModule sampleSubtypeModule() {
-		return new SubtypeModule(SimpleRemoteEvent.class);
+		return new SubtypeModule(RemoteApplicationEvent.class);
 	}
 
 	@Bean
@@ -111,7 +110,7 @@ public class Application implements ApplicationListener<SimpleRemoteEvent> {
 	}
 
 	@Override
-	public void onApplicationEvent(SimpleRemoteEvent event) {
+	public void onApplicationEvent(RemoteApplicationEvent event) {
 		logger.info("Received event: {}", event);
 	}
 }
