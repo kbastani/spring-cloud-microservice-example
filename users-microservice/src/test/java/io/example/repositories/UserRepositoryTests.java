@@ -7,8 +7,10 @@ import io.example.domain.rels.Action;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -16,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,9 +36,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 		})
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureMockMvc
-public class ActionRepositoryTests {
+@AutoConfigureJsonTesters
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class UserRepositoryTests {
 
 	@Autowired MockMvc mockMvc;
+	JacksonTester<User> json;
 
 	@ClassRule
 	public static GenericContainer neo4j =
@@ -50,12 +54,38 @@ public class ActionRepositoryTests {
 		System.setProperty("spring.data.neo4j.uri", "http://" + neo4j.getContainerIpAddress() + ":" + neo4j.getMappedPort(7474));
 	}
 
+	@Before
+	public void setup() {
+		ObjectMapper objectMappper = new ObjectMapper();
+		// Possibly configure the mapper
+		JacksonTester.initFields(this, objectMappper);
+	}
+
 	@Test
-	public void should_get_action() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/actions"))
+	public void validate_01_should_post_user() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/users")
+		.content(json.write(user()).getJson()))
 				.andExpect(status().is2xxSuccessful())
-				.andDo(MockMvcRestDocumentation.document("action",
+				.andDo(MockMvcRestDocumentation.document("user_post",
 						SpringCloudContractRestDocs.dslContract()));
+	}
+
+	@Test
+	public void validate_02_should_get_users() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/users"))
+				.andExpect(status().is2xxSuccessful())
+				.andDo(MockMvcRestDocumentation.document("user_get",
+						SpringCloudContractRestDocs.dslContract()));
+	}
+
+	private User user() {
+		User user = new User();
+		user.setId(1L);
+		user.setEmail("foo@bar.com");
+		user.setFirstName("Foo");
+		user.setLastName("Bar");
+		user.setPhone("123123123");
+		return user;
 	}
 
 }
