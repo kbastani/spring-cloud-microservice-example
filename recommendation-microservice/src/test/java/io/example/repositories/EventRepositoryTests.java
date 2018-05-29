@@ -1,9 +1,8 @@
 package io.example.repositories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.example.UserApplication;
-import io.example.domain.nodes.User;
-import io.example.domain.rels.Action;
+import io.example.Application;
+import io.example.domain.nodes.Event;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -30,18 +29,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Marcin Grzejszczak
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = UserApplication.class,
+@SpringBootTest(classes = Application.class,
 		properties = {
 		"eureka.client.enabled=false"
 		})
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-public class UserRepositoryTests {
+public class EventRepositoryTests {
 
 	@Autowired MockMvc mockMvc;
-	@Autowired UserRepository userRepository;
-	JacksonTester<User> json;
+	@Autowired EventRepository repository;
 
 	@ClassRule
 	public static GenericContainer neo4j =
@@ -62,33 +60,14 @@ public class UserRepositoryTests {
 	}
 
 	@Test
-	public void should_post_user() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/users")
-		.content(json.write(user()).getJson()))
+	public void should_get_events() throws Exception {
+		repository.save(new Event());
+		repository.save(new Event());
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/events"))
 				.andExpect(status().is2xxSuccessful())
-				.andDo(MockMvcRestDocumentation.document("user_post",
+				.andDo(MockMvcRestDocumentation.document("events",
 						SpringCloudContractRestDocs.dslContract()));
-	}
-
-	@Test
-	public void should_get_users() throws Exception {
-		userRepository.deleteAll();
-		userRepository.save(user());
-
-		mockMvc.perform(MockMvcRequestBuilders.get("/users"))
-				.andExpect(status().is2xxSuccessful())
-				.andDo(MockMvcRestDocumentation.document("user_get",
-						SpringCloudContractRestDocs.dslContract()));
-	}
-
-	private User user() {
-		User user = new User();
-		user.setId(1L);
-		user.setEmail("foo@bar.com");
-		user.setFirstName("Foo");
-		user.setLastName("Bar");
-		user.setPhone("123123123");
-		return user;
 	}
 
 }

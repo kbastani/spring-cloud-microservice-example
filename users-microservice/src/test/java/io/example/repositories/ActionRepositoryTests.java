@@ -2,6 +2,7 @@ package io.example.repositories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.UserApplication;
+import io.example.domain.nodes.Event;
 import io.example.domain.nodes.User;
 import io.example.domain.rels.Action;
 import org.junit.Before;
@@ -38,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ActionRepositoryTests {
 
 	@Autowired MockMvc mockMvc;
+	@Autowired ActionRepository repository;
 
 	@ClassRule
 	public static GenericContainer neo4j =
@@ -52,10 +54,36 @@ public class ActionRepositoryTests {
 
 	@Test
 	public void should_get_action() throws Exception {
+		repository.save(action());
+
 		mockMvc.perform(MockMvcRequestBuilders.get("/actions"))
 				.andExpect(status().is2xxSuccessful())
 				.andDo(MockMvcRestDocumentation.document("action",
 						SpringCloudContractRestDocs.dslContract()));
+	}
+
+	private Action action() {
+		Action action = new Action();
+		action.setId(1L);
+		action.setActor(user());
+		action.setEvent(event());
+		return action;
+	}
+
+	private User user() {
+		User user = new User();
+		user.setId(1L);
+		user.setEmail("foo@bar.com");
+		user.setFirstName("Foo");
+		user.setLastName("Bar");
+		user.setPhone("123123123");
+		return user;
+	}
+
+	private Event event() {
+		Event event = new Event();
+		event.setUser(user());
+		return event;
 	}
 
 }
