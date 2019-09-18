@@ -24,4 +24,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ConsulProperties {
 
 	private String prop = "default value";
+
+	public String getProp() {
+		// TODO Auto-generated method stub
+		return prop;
+	}
 }
